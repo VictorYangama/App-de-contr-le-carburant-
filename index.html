@@ -1,183 +1,58 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRALIMA - V4.3 Contrôle Carburant</title>
-<style>
-body{font-family:Arial;background:#0f172a;color:#fff;padding:15px}
-.card{background:#fff;color:#111;border-radius:14px;padding:16px;max-width:480px;margin:auto}
-h2{text-align:center;color:#b91c1c}
-label{font-weight:bold;font-size:13px;display:block;margin-top:12px}
-input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;margin-top:4px;font-size:15px}
-.row{display:flex;gap:10px}
-.row>div{flex:1}
-.btns{display:flex;gap:8px;margin-top:6px}
-.btns button{flex:1;padding:11px;border-radius:8px;border:2px solid #111;background:#fff;font-weight:bold;cursor:pointer}
-.btns button.active{background:#111;color:#facc15}
-.calc{width:100%;background:#dc2626;color:#fff;border:none;padding:14px;border-radius:10px;font-size:17px;font-weight:bold;margin-top:16px}
-.result{margin-top:16px;padding:14px;border-radius:10px;background:#fef3c7;color:#111;display:none}
-.result.vol{background:#fee2e2}
-.result.ok{background:#dcfce7}
-.small{font-size:12px;color:#666}
-</style>
-</head>
-<body>
-<div class="card">
-<h2>BRALIMA - V4.3<br><span style="font-size:13px">CAMIONS SEULEMENT • CONTRÔLE CARBURANT</span></h2>
-
-<label>Nom Entreprise Client (PRODUCTION)</label>
-<input value="BRALIMA" id="entreprise">
-
-<label>Type de Camion - PRODUCTION RDC</label>
-<select id="camion" onchange="majConso()">
-<option value="33">Scania P360 - 33L/100 - Bralima Boissons</option>
-<option value="36">Mercedes Actros - 36L/100 - Bralima Boissons</option>
-<option value="22">Isuzu FVR - 22L/100 - Distribution Légère</option>
-<option value="28">MAN TGS - 28L/100 - Bralima</option>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Controle Carburant RDC</title>
+<style>body{font-family:Arial;background:#f4f4f4;margin:0;padding:12px}.card{background:#fff;max-width:480px;margin:auto;padding:16px;border-radius:12px}h2{text-align:center;margin:5px 0 2px;font-size:22px}.sub{text-align:center;color:#666;font-size:13px;margin:0 0 12px}label{font-weight:bold;font-size:13px;display:block;margin-top:12px}input,select{width:100%;padding:11px;margin-top:5px;border:1px solid #ccc;border-radius:8px;font-size:15px;box-sizing:border-box}.row{display:flex;gap:8px}.row button{flex:1;padding:12px;border:2px solid #111;border-radius:8px;background:#fff;font-weight:bold;cursor:pointer}.row button.on{background:#111;color:#facc15}.btns{display:flex;gap:8px;margin-top:16px}.btns button{flex:1;padding:13px;border:none;border-radius:8px;font-weight:bold;font-size:14px;cursor:pointer}.vert{background:#22c55e}.orange{background:#f59e0b}.pdf{width:100%;padding:12px;margin-top:8px;background:#fff;color:#2563eb;border:2px solid #2563eb;border-radius:8px;font-weight:bold;cursor:pointer}#res{white-space:pre-line;background:#f9f9f9;padding:12px;border-radius:8px;margin-top:12px;font-size:14px;line-height:1.5}.journal{margin-top:14px}.journal div{background:#f9f9f9;padding:9px;border-radius:8px;margin-top:6px;font-size:13px}.actions{display:flex;gap:8px;margin-top:10px}.actions button{flex:1;padding:10px;border:1px solid #ccc;border-radius:8px;background:#fff;font-weight:bold;cursor:pointer}.small{font-size:12px;color:#666}</style></head>
+<body><div class="card">
+<h2>CONTROLE CARBURANT - RDC</h2><p class="sub">Camions • Détection de vol • Rapport PDF • Journal</p>
+<label>Nom de l'Entreprise / Client</label><input id="entreprise" placeholder="ex: TRANSCO, BRALIMA, SOCIMAT, OK PLAST">
+<label>Type de Camion - RDC (Toutes marques)</label>
+<select id="camion">
+<option value="22">Isuzu FVR - 22L/100 - Distribution Locale</option>
+<option value="20">Isuzu FTR - 20L/100 - Moyen Porteur</option>
+<option value="16">Isuzu NQR - 16L/100 - Petit Porteur</option>
+<option value="28">Mercedes Actros 2640 - 28L/100 - Longue Distance</option>
+<option value="24">Mercedes Axor - 24L/100 - Régional</option>
+<option value="19">Mercedes Atego - 19L/100 - Distribution</option>
+<option value="30">Volvo FH 440 - 30L/100 - Longue Distance</option>
+<option value="26">Volvo FM 370 - 26L/100 - Régional</option>
+<option value="27">MAN TGS 33.400 - 27L/100 - Chantier / Route</option>
+<option value="29">Scania P410 / G410 - 29L/100 - Longue Distance</option>
+<option value="32">Howo / Sinotruk 371 - 32L/100 - Carrière / Lourd</option>
+<option value="30">Dongfeng 375 - 30L/100 - Benne</option>
+<option value="31">FAW J5P - 31L/100 - Benne / Carrière</option>
+<option value="23">Hino 500 - 23L/100 - Distribution / Benne</option>
+<option value="18">Mitsubishi Canter / Dyna - 18L/100 - Léger</option>
+<option value="25">Tata LPT 2518 - 25L/100 - Benne</option>
+<option value="24">Iveco Trakker / Eurocargo - 24L/100 - Chantier</option>
+<option value="15">Toyota Dyna / Coaster - 15L/100 - Léger</option>
 </select>
-<div class="small" id="infoCamion">Scania P360: 33L base => 42.9L ville Kin (+30%), 44.6L province (+35%)</div>
-
-<label>Immatriculation / Plaque</label>
-<input id="plaque" placeholder="Ex: 1234-AB-26">
-
-<label>Type de Trajet - Congo</label>
-<div class="btns">
-<button id="btnVille" onclick="setTrajet('ville')" class="active">Ville Kin (+30% bouchon)</button>
-<button id="btnProv" onclick="setTrajet('province')">Province (+35% collines)</button>
+<div class="small" id="infoBase">Base 22L => 28.6L ville Kin (+30%), 29.7L province (+35%)</div>
+<label>Immatriculation</label><input id="plaque" placeholder="Ex: SC-8845">
+<label>Type de Trajet - Congo</label><div class="row"><button id="bVille" class="on" onclick="setTrajet('ville')">Ville Kin (+30% bouchon)</button><button id="bProv" onclick="setTrajet('province')">Province (+35% collines)</button></div>
+<label>Charge</label><div class="row"><button id="bCharge" class="on" onclick="setCharge('charge')">Chargé</button><button id="bVide" onclick="setCharge('vide')">Vide (retour) -20L</button></div>
+<label>Destination</label><input id="destination" placeholder="Ex: Kinshasa-Matadi">
+<label>Réservoir au Départ (L)</label><input type="number" id="dep" placeholder="Ex: 200">
+<label>Réservoir à l'Arrivée (L)</label><input type="number" id="arr" placeholder="Ex: 80">
+<label>Carburant Ajouté en Route (L)</label><input type="number" id="ajout" value="0">
+<label>Distance (Km)</label><input type="number" id="km" placeholder="Ex: 320">
+<label>Etat Route</label><select id="route"><option>Mixte</option><option>Bon</option><option>Mauvais - Piste</option></select>
+<div class="btns"><button class="vert" onclick="calculer()">CALCULER</button><button class="orange" onclick="detecterVol()">DETECTER VOL</button></div>
+<button class="pdf" onclick="telechargerPDF()">📄 Rapport PDF</button>
+<div id="res">Remplis puis CALCULER.</div>
+<div class="journal"><h3>Journal — <span id="nomJournal">Entreprise</span></h3><div id="liste"></div><div class="actions"><button onclick="supprimerDoublons()">🗑 Supprimer les doublons</button><button onclick="viderTout()">🧹 VIDER TOUT</button></div></div>
 </div>
-
-<label>Charge</label>
-<div class="btns">
-<button id="btnCharge" onclick="setCharge('charge')" class="active">Chargé</button>
-<button id="btnVide" onclick="setCharge('vide')">Vide (retour) -20L</button>
-</div>
-
-<label>Destination - Production & Provinces</label>
-<select id="destination"></select>
-
-<!-- MODE PROVINCE -->
-<div id="blocProvince">
-<label>Distance (km)</label>
-<div class="row"><div><input type="number" id="distance" value="350"></div>
-<div><input type="number" id="consoBase" value="33" readonly><span class="small">Conso base L/100 (auto)</span></div></div>
-</div>
-
-<!-- MODE VILLE KIN -->
-<div id="blocVille">
-<label>Réservoir au Départ (L) - Sans capteur, jauge / tige</label>
-<input type="number" id="resDep" value="200">
-<label>Réservoir à l'Arrivée (L) - Sans capteur, jauge / tige</label>
-<input type="number" id="resArr" value="170">
-<div class="row">
-<div><label>Nombre de Livraisons / Arrêts</label><input type="number" id="nbLiv" value="8"></div>
-<div><label>Heure Départ</label><input type="time" id="hDep" value="07:00"></div>
-<div><label>Heure Arrivée</label><input type="time" id="hArr" value="16:00"></div>
-</div>
-<div class="small">Exemple: 200L - 170L = 30L consommé réel. Si chauffeur déclare 50L, vol = 20L.</div>
-</div>
-
-<label>Carburant Déclaré (L) - Ce que le chauffeur dit avoir utilisé</label>
-<input type="number" id="declare" value="180">
-
-<label>Prix Carburant FC / L (Manuel)</label>
-<input type="number" id="prix" value="2635">
-<div class="small">Kinshasa officiel 2635 FC, Matadi 3000 FC, Province 3500 FC - Tu changes manuellement</div>
-
-<button class="calc" onclick="calculer()">CALCULER - DÉTECTER VOL</button>
-
-<div id="res" class="result"></div>
-</div>
-
 <script>
-let trajet='ville', charge='charge';
-const destVille=[
-"Tournée Limete - Gombe - Kintambo",
-"Tournée Limete - Ngaliema - Mont Ngafula",
-"Tournée Limete - Masina - N'Djili",
-"Tournée Dépôt - Gombe (Centre Ville)",
-"Tournée Autre Commune Kinshasa"
-];
-const destProv=[
-["Kinshasa - Matadi / Boma (350 Km)",350],
-["Kinshasa - Kimpese (220 Km)",220],
-["Kinshasa - Kananga (1200 Km)",1200],
-["Kinshasa - Kikwit (550 Km)",550],
-["Kinshasa - Lubumbashi (2200 Km)",2200]
-];
-function majConso(){
-  let base=document.getElementById('camion').value;
-  document.getElementById('consoBase').value=base;
-  document.getElementById('infoCamion').innerText=`Base ${base}L => ${(base*1.3).toFixed(1)}L ville Kin (+30%), ${(base*1.35).toFixed(1)}L province (+35%)`;
-  majDest();
-}
-function majDest(){
-  let sel=document.getElementById('destination');
-  sel.innerHTML='';
-  if(trajet==='ville'){
-    destVille.forEach(d=>{let o=document.createElement('option');o.text=d;sel.add(o)});
-  } else {
-    destProv.forEach(d=>{let o=document.createElement('option');o.text=d[0];o.value=d[1];sel.add(o)});
-    document.getElementById('distance').value=sel.value;
-  }
-}
-function setTrajet(t){
-  trajet=t;
-  document.getElementById('btnVille').classList.toggle('active',t==='ville');
-  document.getElementById('btnProv').classList.toggle('active',t==='province');
-  document.getElementById('blocVille').style.display=t==='ville'?'block':'none';
-  document.getElementById('blocProvince').style.display=t==='province'?'block':'none';
-  majDest();
-}
-function setCharge(c){
-  charge=c;
-  document.getElementById('btnCharge').classList.toggle('active',c==='charge');
-  document.getElementById('btnVide').classList.toggle('active',c==='vide');
-}
-document.getElementById('destination').addEventListener('change',function(){
-  if(trajet==='province') document.getElementById('distance').value=this.value;
-});
-function calculer(){
-  let base=parseFloat(document.getElementById('camion').value);
-  let declare=parseFloat(document.getElementById('declare').value)||0;
-  let prix=parseFloat(document.getElementById('prix').value)||0;
-  let consoReelle=0, attendu=0, explication='';
-  if(trajet==='ville'){
-    let dep=parseFloat(document.getElementById('resDep').value)||0;
-    let arr=parseFloat(document.getElementById('resArr').value)||0;
-    consoReelle=dep-arr;
-    // Tolérance bouchon : +5L si +8 livraisons ou +8h tournée
-    let nb=parseFloat(document.getElementById('nbLiv').value)||0;
-    let tolerance = nb>=8 ? 5 : 2;
-    attendu=consoReelle+tolerance;
-    explication=`MODE VILLE KIN - SANS CAPTEUR<br>Réservoir: ${dep}L - ${arr}L = ${consoReelle}L consommé réel<br>Livraisons: ${nb} arrêts | Tolérance bouchon: +${tolerance}L<br>Conso acceptée max: ${attendu}L`;
-  } else {
-    let dist=parseFloat(document.getElementById('distance').value)||0;
-    let coef = trajet==='province' ? 1.35 : 1.3;
-    attendu = dist*base/100*coef;
-    if(charge==='vide') attendu = Math.max(0, attendu-20);
-    consoReelle=attendu; // en province on compare déclaré vs attendu
-    explication=`MODE PROVINCE<br>Distance: ${dist} Km x ${base}L/100 x ${coef} = ${attendu.toFixed(1)}L attendu<br>Charge: ${charge==='vide'?'Vide (-20L)':'Chargé'}`;
-  }
-  let vol = declare - (trajet==='ville' ? consoReelle : attendu);
-  // En ville, on enlève la tolérance du vol
-  if(trajet==='ville'){
-    let nb=parseFloat(document.getElementById('nbLiv').value)||0;
-    let tol = nb>=8 ? 5 : 2;
-    vol = declare - consoReelle - tol;
-  }
-  let volFC = vol>0 ? vol*prix : 0;
-  let box=document.getElementById('res');
-  box.style.display='block';
-  if(vol>0){
-    box.className='result vol';
-    box.innerHTML=`<b>🚨 VOL DÉTECTÉ</b><br>${explication}<br><br>Déclaré: ${declare}L<br><b>Vol: ${vol.toFixed(1)}L = ${volFC.toLocaleString()} FC</b>`;
-  } else {
-    box.className='result ok';
-    box.innerHTML=`<b>✅ OK - PAS DE VOL</b><br>${explication}<br><br>Déclaré: ${declare}L<br>Diff: ${vol.toFixed(1)}L - Dans la tolérance`;
-  }
-}
-majConso(); setTrajet('ville');
-</script>
-</body>
-</html>
+let trajet='ville',charge='charge',dernier=null;
+function setTrajet(t){trajet=t;document.getElementById('bVille').className=t=='ville'?'on':'';document.getElementById('bProv').className=t=='province'?'on':''}
+function setCharge(c){charge=c;document.getElementById('bCharge').className=c=='charge'?'on':'';document.getElementById('bVide').className=c=='vide'?'on':''}
+document.getElementById('camion').onchange=function(){let b=parseFloat(this.value);document.getElementById('infoBase').innerText='Base '+b+'L => '+(b*1.3).toFixed(1)+'L ville Kin (+30%), '+(b*1.35).toFixed(1)+'L province (+35%)'};
+function getData(){let base=parseFloat(document.getElementById('camion').value);let conso=trajet=='ville'?base*1.3:base*1.35;let km=parseFloat(document.getElementById('km').value||0);let dep=parseFloat(document.getElementById('dep').value||0);let arr=parseFloat(document.getElementById('arr').value||0);let ajout=parseFloat(document.getElementById('ajout').value||0);let prevu=conso*km/100;if(charge=='vide')prevu=Math.max(0,prevu-20);let reel=(dep+ajout)-arr;let diff=reel-prevu;return{prevu,reel,diff,km};}
+function calculer(){let d=getData();let ent=document.getElementById('entreprise').value||'Entreprise';document.getElementById('nomJournal').innerText=ent;let txt='Entreprise: '+ent+'\nCamion: '+document.getElementById('camion').options[document.getElementById('camion').selectedIndex].text+'\nPlaque: '+(document.getElementById('plaque').value||'-')+'\nDestination: '+(document.getElementById('destination').value||'-')+'\nTrajet: '+(trajet=='ville'?'Ville Kin':'Province')+' | Charge: '+charge+' | Route: '+document.getElementById('route').value+'\nDistance: '+d.km+' Km\nPrévu: '+d.prevu.toFixed(1)+' L | Réel: '+d.reel.toFixed(1)+' L | Diff: '+d.diff.toFixed(1)+' L';document.getElementById('res').innerText=txt;dernier={date:new Date().toLocaleString(),plaque:document.getElementById('plaque').value||'-',reel:d.reel,diff:d.diff};ajouterJournal();}
+function detecterVol(){calculer();let d=getData();let msg=d.diff>5?'⚠️ VOL SUSPECTÉ - '+d.diff.toFixed(1)+'L en trop - Vérifier chauffeur !':d.diff<-5?'✅ ÉCONOMIE - '+(Math.abs(d.diff)).toFixed(1)+'L économisés':'✅ AUCUN VOL - Consommation normale';document.getElementById('res').innerText+='\n\n'+msg;}
+function ajouterJournal(){if(!dernier)return;let j=JSON.parse(localStorage.getItem('journal')||'[]');j.unshift(dernier);localStorage.setItem('journal',JSON.stringify(j));afficher();}
+function afficher(){let j=JSON.parse(localStorage.getItem('journal')||'[]');document.getElementById('liste').innerHTML=j.map(x=>'<div>'+x.date+' | Camion '+x.plaque+' | '+x.reel.toFixed(1)+'L | Vol: '+x.diff.toFixed(1)+'L '+(x.diff>5?'⚠️':'✅')+'</div>').join('')||'<div>Aucun enregistrement.</div>';}
+function supprimerDoublons(){let j=JSON.parse(localStorage.getItem('journal')||'[]');let vu={};let f=j.filter(x=>{let k=x.date+'-'+x.plaque+'-'+x.reel;if(vu[k])return false;vu[k]=1;return true});localStorage.setItem('journal',JSON.stringify(f));afficher();alert('Doublons supprimés !');}
+function viderTout(){if(confirm('Vider tout le journal ?')){localStorage.removeItem('journal');afficher();}}
+function telechargerPDF(){let res=document.getElementById('res').innerText;let win=window.open('','','width=600,height=700');win.document.write('<html><head><title>Rapport</title></head><body style="font-family:Arial;padding:20px"><h2>CONTROLE CARBURANT - RDC</h2><p><b>Entreprise:</b> '+(document.getElementById('entreprise').value||'-')+'<br><b>Date:</b> '+new Date().toLocaleDateString()+'</p><hr><p>'+res.replace(/\n/g,'<br>')+'</p><hr><p>Signature chauffeur: ___________<br><br>Signature contrôleur: ___________</p></body></html>');win.document.close();win.print();}
+afficher();
+</script></body></html>
